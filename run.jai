@@ -20,8 +20,9 @@ print("\t%1: ");
 push_recording_logger();
 %1();
 print("PASSED\n");
-#if %2	print_temporary_usage();
+#if %2 { print_temporary_usage();
 print("\n");
+}
 reset_temporary_storage();
 END
 TEST_SKIPPED_TEMPLATE :: #string END
@@ -138,7 +139,7 @@ build_tests :: (base_options: Build_Options, dir: string, preamble := "", module
 						last_filename: string;
 						for tests {
 							if compare(last_filename, it.filename) {
-								print_to_builder(*test_builder, "print(\"\%:\\n\", \"%\");\n", it.filename);
+								print_to_builder(*test_builder, "print(\"\\n\%:\\n\", \"%\");\n", it.filename);
 								last_filename = it.filename;
 							}
 							template: string;
